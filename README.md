@@ -1,5 +1,10 @@
 # Triple Triad Game
-Welcome to Triple Triad, a fun and strategic card game brought to life in Java! In this game, two players compete by placing cards on a board, aiming to capture as many of their opponent’s cards as possible. Each card has values for its four sides—north, south, east, and west—and the board itself can throw in obstacles like holes to shake things up. Whether you're a human player or competing against a clever AI, every move counts!
+
+Welcome to **Triple Triad**, a fun and strategic card game brought to life in Java! Here, we present **two versions** of our game:  
+1. The **Original Code Version**, which runs purely on our own implementation.  
+2. The **Adapted Code Version**, where we’ve integrated a classmate’s code so their view is used for one of the players.  
+
+In both versions, two players compete by placing cards on a board, aiming to capture as many of their opponent’s cards as possible. Each card has values for its four sides—north, south, east, and west—and the board itself can throw in obstacles like holes to shake things up. Whether you're a human player or competing against a clever AI, every move counts!
 
 This project is built with flexibility in mind, allowing for future additions like new card types, custom board layouts, and advanced player mechanics. The implementation is structured using the Model-View-Controller (MVC) design pattern, ensuring clean, expandable code.
 
@@ -7,8 +12,8 @@ This project is built with flexibility in mind, allowing for future additions li
 
 ## How to Get Started
 
-### Running the Game
-1. Navigate to the root folder (*Homework8 Final*).
+### Running the Original Game
+1. Navigate to the root folder.
 2. Open PowerShell (or your preferred terminal) and run:
    ```bash
    java -jar TripleTriad.jar
@@ -54,6 +59,29 @@ Here, you must type the name of the strategy you’d like the AI to use:
 - If you choose AI, an AIListener is created using the selected strategy, allowing the AI to make autonomous decisions.
 
 ---
+
+### Running the Adapted Version (Without a JAR File)
+
+For the adapted version that integrates the provider’s code, we do not supply a standalone JAR file currently. Instead, you will need to open the project in an IDE of your choice (e.g., IntelliJ, Eclipse, or VS Code with the Java extension) and run it from there:
+
+1. **Open the Project in Your IDE:**
+   - Import the project into your IDE (e.g., use "File > Open" in IntelliJ or "File > Import" in Eclipse).
+   - Make sure that your IDE recognizes the project as a Java project and that all necessary libraries and dependencies are correctly set up.
+
+2. **Locate the Main Class:**
+   - The main class for running the adapted version is `ThreeTrios`.
+   - In your IDE’s project explorer, navigate to the `ThreeTrios` class.
+
+3. **Run the Main Class:**
+   - Right-click the `ThreeTrios` class and select "Run ThreeTrios" (the exact option may vary depending on your IDE).
+   - Alternatively, set `ThreeTrios` as the main class in your run configuration and then execute.
+
+4. **Follow On-Screen Prompts:**
+   - After running `ThreeTrios`, you’ll be prompted to configure Player 1 (Red) and Player 2 (Blue).
+   - Select "Human" or "AI" as needed, and if choosing AI, specify the desired strategy.
+   - Enjoy playing the integrated version of the game with the provider’s view and your original logic!
+
+-----
 
 ## How to Play
 
@@ -105,6 +133,53 @@ The project includes extensive testing to ensure smooth gameplay:
 - Game Logic Tests: Validates moves, card flipping, and scoring.
 - AI Strategy Tests: Ensures the AI makes smart, adaptive decisions.
 - User Interface Tests: Confirms the board updates correctly with every move.
+
+---
+## Integration with Provider’s Code (Adapted Code Component)
+
+As part of an assignment in OOD, we integrated our game with code provided by another group. 
+
+### Overview
+
+This assignment required us to:
+
+1. Adapt the provider’s view and strategy code to work within our existing MVC architecture.
+2. Ensure that our original functionality remains intact while introducing the provider’s components for Player 2.
+3. Critically assess the provider’s code through a design and implementation critique, as well as review the overall experience.
+
+
+### Features and Limitations
+
+- **Working Features:**
+  - Player 1 (Red) uses our original view, maintaining our UI, controls, and gameplay logic.
+  - Player 2 (Blue) seamlessly integrates the provider’s UI and controller, allowing direct interaction and AI strategies as intended.
+  - All AI strategies function correctly, and the board updates reflect both players’ moves.
+  - The game ends and scores are tallied correctly, with both views updating as expected.
+
+- **Known Limitations:**
+  - The provider’s view uses a different approach to command-line interactions. We chose not to modify their approach to ensure compatibility and minimal disruption. This may cause some slight confusion, but the in-game prompts guide the player effectively.
+  - Some additional features that the provider’s view may support (beyond the core requirements) were not fully integrated. This was not required, and their omission does not impact core gameplay.
+
+### Adaptation Details
+
+- **CombinedControllerFeatures:**  
+  Connects our system with the provider’s code, implementing interfaces like `ThreeTrioControllerFeatures`, `ThreeTrioGuiFeatures`, and `ModelListener`. This bridging class ensures that actions like selecting cards, making moves, and updating the board state flow smoothly between our model and their view.
+
+- **CombinedCard:**  
+  Wraps our `Card` class to implement the provider’s `ThreeTrioCard` interface. It adapts card properties (north, south, east, west values) into the provider’s expected format, ensuring our cards can be displayed and manipulated through their view.
+
+- **CombinedModel:**  
+  Serves as an adapter between our `MutableTTB` model and the `ReadonlyThreeTrioModel` interface provided by the other group. It translates board state, player hands, and card configurations into a format recognized by the provider’s code, allowing their view to correctly display the game state.
+
+- **CombinedPlayer:**  
+  Adapts our `Player` class to the provider’s `Player` interface, ensuring that player identity, color, and hand information are properly communicated. This class allows the provider’s view to recognize and interact with our players.
+
+- **ProviderViewAdapter:**  
+  Integrates the provider’s `ThreeTrioGuiView` with our `GameView` interface. It translates their method calls (e.g., `playToBoard`) into the actions recognized by our system (e.g., `selectCell`). This adapter ensures that the provider’s UI reacts to and reflects the game state changes initiated by the controller and model.
+
+
+This adaptation process has demonstrated the importance of flexible interfaces, loose coupling, and clear documentation. By integrating the provider’s view and strategies into our game, we have maintained the core functionality of our original code while extending the game’s capabilities. This exercise highlights real-world development scenarios, where teams must adapt and extend each other’s work, ensuring a cohesive final product.
+
 
 ---
 ## Why You'll Love This Game
